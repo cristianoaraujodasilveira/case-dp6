@@ -13,6 +13,7 @@ var $Tageamento = (function ($, window, document, undefined) {
     var downloadSelector =  ".menu-lista-link.menu-lista-download";
     var formContatoSelector =  ".contato input";
     var cardsSelector = ".card.card-montadoras";
+    var lightboxOpen = "lightbox-open"
 	// Inicializa cada ação da tela, funções e métodos
 	return {
 		go : function () {
@@ -22,11 +23,10 @@ var $Tageamento = (function ($, window, document, undefined) {
 		},
 		init : {
 			// Initialize páginas
-			inicializa : function() {        
+			inicializa : function() {       
 			},
             captura_evento_contato: function() {
                 $(document).on( 'click', contatoSelector, function(){
-                    console.log('link_externo');
                     ga('send', 'event', 'menu', 'entre_em_contato', 'link_externo');
                 });
             },
@@ -40,7 +40,6 @@ var $Tageamento = (function ($, window, document, undefined) {
                 $(document).on( "blur", formContatoSelector, function(){
                     if ($.trim($(this).val()).length){
                         let id = $(this).attr("id");
-                        console.log(id);
                         ga('send', 'event', 'contato', id, 'preencheu');   
                     }       
                 })
@@ -48,10 +47,17 @@ var $Tageamento = (function ($, window, document, undefined) {
             captura_evento_cards_montadora: function() {
                 $(document).on( 'click', cardsSelector, function(){
                     let label = $(this).data("id");
-                    console.log(label);
                     ga('send', 'event', 'analise', 'ver_mais', label);
                 })
             },  
+            captura_envento_form: function() {
+                $(document).on("DOMSubtreeModified", "body", function(){
+                    let class_attr = $("body").attr("class");
+                    if (class_attr.includes(lightboxOpen)){
+                        ga('send', 'event', 'contato', 'enviado', 'enviado');
+                    }
+                });
+            } 
 		},
 		util : {
 
