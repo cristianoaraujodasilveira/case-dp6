@@ -32,7 +32,6 @@ var $Tageamento = (function ($, window, document, undefined) {
             },
             captura_evento_download: function() {
                 $(document).on( 'click', downloadSelector, function(){
-                    console.log('download_pdf');
                     ga('send', 'event', 'menu', 'download_pdf', 'download_pdf');
                 });
             },
@@ -46,7 +45,7 @@ var $Tageamento = (function ($, window, document, undefined) {
             },  
             captura_evento_cards_montadora: function() {
                 $(document).on( 'click', cardsSelector, function(){
-                    let label = $(this).data("id");
+                    let label = $(this).data("name");
                     ga('send', 'event', 'analise', 'ver_mais', label);
                 })
             },  
